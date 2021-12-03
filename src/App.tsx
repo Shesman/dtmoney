@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import { Dashboard } from './components/Dashboard'
+import { Header } from './components/Header'
+import { GobalStyle } from './styles/globo'
 
-function App() {
+import Modal from 'react-modal'
+import { NewTransactionModal } from './components/NewTransactionModal'
+
+Modal.setAppElement('#root')
+
+export function App() {
+  //inicia o modal como false pq seu estado inicial é fechado
+  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] =
+    useState(false)
+
+  //inicio a funcao com "handle" sempre que usario vai clicar ou executar algo para chama-la
+  function handleOpenNewTransactionModal() {
+    setIsNewTransactionModalOpen(true)
+  }
+
+  function handleCloseNewTransactionModal() {
+    setIsNewTransactionModalOpen(false)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <>
+      <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
+      <Dashboard />
+      <GobalStyle />
 
-export default App;
+      <NewTransactionModal
+        isOpen={isNewTransactionModalOpen}
+        onResquestClose={handleCloseNewTransactionModal}
+      />
+    </>
+  )
+}
