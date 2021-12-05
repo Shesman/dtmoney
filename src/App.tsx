@@ -5,6 +5,7 @@ import { GobalStyle } from './styles/globo'
 
 import Modal from 'react-modal'
 import { NewTransactionModal } from './components/NewTransactionModal'
+import { TransactionsProvider } from './hooks/useTransactions'
 
 Modal.setAppElement('#root')
 
@@ -23,7 +24,7 @@ export function App() {
   }
 
   return (
-    <>
+    <TransactionsProvider>
       <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
       <Dashboard />
       <GobalStyle />
@@ -32,6 +33,6 @@ export function App() {
         isOpen={isNewTransactionModalOpen}
         onResquestClose={handleCloseNewTransactionModal}
       />
-    </>
+    </TransactionsProvider>
   )
 }
